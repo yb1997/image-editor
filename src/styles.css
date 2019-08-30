@@ -1,0 +1,227 @@
+:root {
+  --DARK_THEME_BACKGROUND: #333;
+  --DARK_THEME_COLOR: #fff;
+  --LIGHT_THEME_BACKGROUND: #fff;
+  --LIGHT_THEME_COLOR: #333;
+  --TOOL_DRAWER_WIDTH: 320px;
+  --TOOL_DRAWER_SLIDE_BY: -320px;
+  --TOOL_MENU_HEIGHT: 60px;
+  --HEADER_HEIGHT: 60px;
+  --TOGGLE_HEIGHT: 30px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(to right bottom, #9c27b0, #3f51b5);
+  font-family: "Pacifico", cursive, Arial;
+}
+
+/* #region utility classes */
+.clear {
+  clear: both;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+/* #endregion */
+
+/* #region checkbox styles */
+.toggle {
+  margin: 0;
+  float: left;
+}
+
+.material-toggle {
+  height: 0;
+  width: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.toggle-wrapper {
+  display: inline-block;
+  height: var(--TOGGLE_HEIGHT);
+  margin-bottom: var(--TOGGLE_HEIGHT);
+  clear: left;
+}
+
+.material-toggle:checked:before {
+  left: 30px;
+}
+
+.material-toggle:checked:after {
+  background-color: #4caf50;
+}
+
+.material-toggle:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: white;
+  height: var(--TOGGLE_HEIGHT);
+  width: 30px;
+  z-index: 2;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
+  transition: left 0.4s;
+}
+
+.material-toggle:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  margin-top: 2px;
+  width: 60px;
+  border-radius: 15px;
+  background-color: gray;
+  transition: background-color 0.8s;
+}
+/* #endregion */
+
+/* #region header styles */
+.header {
+  background-color: #333;
+  height: var(--HEADER_HEIGHT);
+}
+
+.header .app-name {
+  line-height: var(--HEADER_HEIGHT);
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-weight: normal;
+}
+/* #endregion */
+
+.input-container {
+  padding: 1em;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  box-shadow: 0 2px 15px #333;
+}
+
+.menu-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* #region Tool Menu Styles */
+.tool-menu {
+  position: relative;
+  color: var(--DARK_THEME_COLOR);
+  font-weight: lighter;
+  font-family: Arial;
+  height: var(--TOOL_MENU_HEIGHT);
+  background: var(--DARK_THEME_BACKGROUND);
+  z-index: 2;
+}
+
+.tool-menu ul {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.tool-menu ul li {
+  padding: 0;
+  transition: all 0.4s;
+  text-align: center;
+}
+
+.tool-menu ul li label {
+  display: inline-block;
+  margin-left: -10px;
+  padding: 1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-menu ul li:hover {
+  background: #673ab7;
+}
+
+.menu-control {
+  height: 0;
+  width: 0;
+}
+
+.menu-control:checked + label {
+  background: #222;
+}
+/* #endregion */
+
+/* #region tool drawer styles */
+.tool-drawer {
+  position: fixed;
+  max-width: var(--TOOL_DRAWER_WIDTH);
+  height: calc(100vh - var(--TOOL_MENU_HEIGHT));
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  top: var(--HEADER_HEIGHT);
+  left: var(--TOOL_DRAWER_SLIDE_BY);
+  transition: left 0.4s;
+  z-index: 1;
+}
+
+.tool-drawer.active {
+  left: 0;
+}
+
+.close-drawer {
+  margin-bottom: 2em;
+  padding: 0 1em;
+  color: white;
+}
+
+.close-drawer i {
+  cursor: pointer;
+}
+
+.close-drawer i:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.drawer-body {
+  padding: 1em;
+  color: white;
+}
+/* #endregion */
+
+.image-invert {
+  display: flex;
+}
+
+.image-invert .toggle-wrapper {
+  flex: 1;
+}
+
+.image-invert label {
+  cursor: pointer;
+  font-size: 1.2em;
+}
