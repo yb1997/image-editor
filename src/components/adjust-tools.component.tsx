@@ -1,5 +1,5 @@
+import * as React from "react";
 import { Consumer } from "../context";
-import { Ref } from "react";
 
 const TEMPLATE_ID = "adjust-tools";
 
@@ -34,36 +34,6 @@ const TEMPLATE_ID = "adjust-tools";
 //     this.invertImage();
 //   }
 
-//   invertImage() {
-//     const actualData = ctx.getImageData(
-//       0,
-//       0,
-//       ctx.canvas.width,
-//       ctx.canvas.height
-//     );
-
-//     const newImageData = new ImageData(
-//       actualData.data,
-//       actualData.height,
-//       actualData.width
-//     );
-
-//     const data = newImageData.data;
-//     const size = data.length;
-
-//     // invert color of each pixel
-//     for (let i = 0; i < size; i += 4) {
-//       if (i + (1 % 4) === 0) {
-//         continue;
-//       }
-//       data[i] = 255 - data[i];
-//     }
-
-//     ctx.putImageData(newImageData, 0, 0);
-
-//     ctx.save();
-//   }
-
 //   onDestory() {
 //     if (this.unsubscribe) this.unsubscribe();
 //   }
@@ -71,12 +41,46 @@ const TEMPLATE_ID = "adjust-tools";
 
 type propType = { ctx: CanvasRenderingContext2D | null }
 
-export const AdjustTools = (props: propType) => {
+export const AdjustToolsCore = (props: propType) => {
+  const ctx = props.ctx;
+
+  const invertImage = () => {
+    const actualData = ctx.getImageData(
+      0,
+      0,
+      ctx.canvas.width,
+      ctx.canvas.height
+    );
+
+    const newImageData = new ImageData(
+      actualData.data,
+      actualData.width,
+      actualData.height
+    );
+
+    const data = newImageData.data;
+    const size = data.length;
+    
+    console.log(actualData.data);
+    // invert color of each pixel
+    for (let i = 0; i < size; i++) {
+      if ((i + 1) % 4 === 0) {
+        continue;
+      }
+      data[i] = 255 - data[i];
+    }
+
+    console.log(actualData.data);
+
+    ctx.putImageData(newImageData, 0, 0);
+
+    ctx.save();
+  }
 
   const handleChange = () => {
-    console.log("canvasRef: ", props.ctx);
+    invertImage();
   }
-  
+
   return (
     <div className="image-invert">
       <div className="toggle-wrapper">
@@ -94,10 +98,10 @@ export const AdjustTools = (props: propType) => {
 };
 
 
-export const AdjustToolsComponent = () => {
+export const AdjustTools = () => {
   return (
     <Consumer>
-      { (props) => <AdjustTools ctx={props.ctx} /> }
+      {(props) => <AdjustToolsCore ctx={props.ctx} />}
     </Consumer>
   );
 }

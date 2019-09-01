@@ -1,42 +1,16 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
 
+import { OPEN_TOOL_DRAWER } from "../_action-types";
+import { MenuOption, AdjustMenuOption } from "./menubar-options";
 
-export const MenuOption = (props: { onClick: (e: React.MouseEvent) => void, title: string, icon: string }) => {
-
-  return (
-    <>
-      <input
-        value={`${props.title.toLowerCase()}-control`}
-        name="menu-control"
-        className="menu-control"
-        id={`${props.title.toLowerCase()}-control`}
-        type="radio"
-        onClick={props.onClick}
-      />
-      <label
-        className="menu-tool"
-        htmlFor={`${props.title.toLowerCase()}-control`}
-        title={props.title}
-      >
-        <i className={`fa fa-2x fa-${props.icon}`} aria-hidden="true"></i>
-      </label>
-    </>
-  );
-}
-
-export const AdjustMenuOption = () => {
-  const onClick = () => {
-    console.log("Adjust option clicked");
-  }
-
-  return (
-    <MenuOption onClick={onClick} title="Adjust" icon="adjust"/>
-  )
-}
 
 export const OverlayMenuOption = () => {
+  const dispatch = useDispatch();
+
   const onClick = () => {
     console.log("Overlay option clicked");
+    dispatch({ type: OPEN_TOOL_DRAWER });
   }
 
   return (
@@ -45,8 +19,11 @@ export const OverlayMenuOption = () => {
 }
 
 export const TransformMenuOption = () => {
+  const dispatch = useDispatch();
+
   const onClick = () => {
     console.log("transform option clicked");
+    dispatch({ type: OPEN_TOOL_DRAWER });
   }
 
   return (
@@ -55,8 +32,10 @@ export const TransformMenuOption = () => {
 }
 
 export const MenuBar = () => {
+
   return (
     <div className="menu-bar">
+      <button> <i className="fa fa-2x fa-undo" title="Revert" ></i></button>
       <div className="tool-menu">
         <ul>
           <li>
@@ -70,13 +49,7 @@ export const MenuBar = () => {
           </li>
         </ul>
       </div>
-
-      <div className="tool-drawer">
-        <div className="close-drawer clear">
-          <i className="fa fa-2x fa-times float-right" aria-hidden="true"></i>
-        </div>
-        <div className="drawer-body"></div>
-      </div>
+      <button>Reapply</button>
     </div>
   );
 };
