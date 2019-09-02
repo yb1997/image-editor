@@ -1,41 +1,21 @@
 import * as React from "react";
+import { ActionCreators as UndoActionCreators } from "redux-undo";
+
+import { AdjustMenuOption, OverlayMenuOption, TransformMenuOption } from "./menubar-options";
+import { Consumer } from "../context";
 import { useDispatch } from "react-redux";
 
-import { OPEN_TOOL_DRAWER } from "../_action-types";
-import { MenuOption, AdjustMenuOption } from "./menubar-options";
 
+export type propType = { ctx: CanvasRenderingContext2D | null };
 
-export const OverlayMenuOption = () => {
+export const MenuBarCore = (props: propType) => {
   const dispatch = useDispatch();
-
-  const onClick = () => {
-    console.log("Overlay option clicked");
-    dispatch({ type: OPEN_TOOL_DRAWER });
-  }
-
-  return (
-    <MenuOption onClick={onClick} title="Overlay" icon="window-restore"/>
-  )
-}
-
-export const TransformMenuOption = () => {
-  const dispatch = useDispatch();
-
-  const onClick = () => {
-    console.log("transform option clicked");
-    dispatch({ type: OPEN_TOOL_DRAWER });
-  }
-
-  return (
-    <MenuOption onClick={onClick} title="Transform" icon="arrows" />
-  )
-}
-
-export const MenuBar = () => {
 
   return (
     <div className="menu-bar">
-      <button> <i className="fa fa-2x fa-undo" title="Revert" ></i></button>
+      <button onClick={() => dispatch(UndoActionCreators.undo())}>
+        <i className="fa fa-2x fa-undo" title="undo"></i>
+      </button>
       <div className="tool-menu">
         <ul>
           <li>
@@ -49,7 +29,17 @@ export const MenuBar = () => {
           </li>
         </ul>
       </div>
-      <button>Reapply</button>
+      <button onClick={() => dispatch(UndoActionCreators.undo())}>
+        <i className="fa fa-2x fa-repeat" title="redo"></i>
+      </button>
     </div>
   );
 };
+
+export const MenuBar = () => {
+  return (
+    <Consumer>
+      {(props) => <MenuBarCore ctx={props.ctx} /> }
+    </Consumer>
+  );
+}

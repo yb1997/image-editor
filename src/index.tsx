@@ -6,6 +6,7 @@ import "./styles.css";
 import { Provider as ContextProvider } from "./context";
 import { Provider } from "react-redux";
 import { store } from "./_store";
+import * as config from "./app.config.json";
 
 type State = { canvas: HTMLCanvasElement | null, ctx: CanvasRenderingContext2D | null };
 
@@ -51,7 +52,7 @@ export class App extends React.Component<{}, State> {
     this.setState((prevState, _props) => {
       return { ...prevState, canvas, ctx: canvas.getContext('2d') };
     }, () => {
-      this.state.canvas.width = 900;
+      this.state.canvas.width = config.CANVAS_WIDTH;
       this.state.canvas.height = 500;
     });
   }

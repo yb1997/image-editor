@@ -1,47 +1,16 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Consumer } from "../context";
+import { useSelector, useDispatch } from "react-redux";
+import { AppStore } from "../_store";
+import { TOGGLE_INVERT_IMAGE } from "../_action-types";
 
-const TEMPLATE_ID = "adjust-tools";
-
-// class AdjustToolsComponentCore {
-//   unsubscribe: () => void;
-//   invertToggle: HTMLInputElement;
-
-//   constructor() {
-//     debugger;
-//     const drawerBody = document.querySelector(".drawer-body");
-
-//     if(drawerBody) {
-//       const template = document.getElementById(TEMPLATE_ID);
-//       drawerBody.innerHTML = template ? template.innerHTML : "";
-//     }
-
-
-//     this.invertToggle = document.getElementById(
-//       "image-invert-control"
-//     ) as HTMLInputElement;
-
-//     this.invertToggle.checked = store.getState().adjust.invertImage;
-
-//     this.unsubscribe = store.subscribe(this.handleChange);
-//   }
-
-//   handleChange() {
-//     const invertImage = store.getState().adjust.invertImage;
-
-//     this.invertToggle.checked = invertImage;
-
-//     this.invertImage();
-//   }
-
-//   onDestory() {
-//     if (this.unsubscribe) this.unsubscribe();
-//   }
-// }
 
 type propType = { ctx: CanvasRenderingContext2D | null }
 
 export const AdjustToolsCore = (props: propType) => {
+  const shallInvertImage = useSelector((p: AppStore) => p.invertImage);
+  const dispatch = useDispatch();
+  const [isFirstTime, setIsFirstTime] = useState(true);
   const ctx = props.ctx;
 
   const invertImage = () => {
@@ -60,8 +29,7 @@ export const AdjustToolsCore = (props: propType) => {
 
     const data = newImageData.data;
     const size = data.length;
-    
-    console.log(actualData.data);
+
     // invert color of each pixel
     for (let i = 0; i < size; i++) {
       if ((i + 1) % 4 === 0) {
@@ -70,15 +38,21 @@ export const AdjustToolsCore = (props: propType) => {
       data[i] = 255 - data[i];
     }
 
-    console.log(actualData.data);
-
     ctx.putImageData(newImageData, 0, 0);
 
     ctx.save();
   }
 
+  useEffect(() => {
+    if(!isFirstTime) {
+      invertImage();
+    } else {
+      setIsFirstTime(false);
+    }
+  }, [shallInvertImage.present]);
+
   const handleChange = () => {
-    invertImage();
+    dispatch({ type: TOGGLE_INVERT_IMAGE });
   }
 
   return (
@@ -90,6 +64,7 @@ export const AdjustToolsCore = (props: propType) => {
           type="checkbox"
           className="toggle material-toggle"
           onChange={handleChange}
+          checked={shallInvertImage.present}
         />
       </div>
       <label htmlFor="image-invert-control">Invert Color</label>

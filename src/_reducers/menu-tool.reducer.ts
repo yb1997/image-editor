@@ -1,11 +1,8 @@
 import { SelectedMenu } from "../constant";
 import { SELECT_MENU_TOOL_OPTION } from "../_action-types/menu-tool.action";
-import { Action } from "redux";
+import { Reducer, AnyAction } from "redux";
 
-export function menuToolReducer(
-  state = SelectedMenu.NONE,
-  action: Action<string> & { selectedMenu: SelectedMenu }
-): SelectedMenu {
+export const menuToolReducer: Reducer<SelectedMenu, AnyAction> = (state = SelectedMenu.NONE, action) => {
   
   if (action.type === SELECT_MENU_TOOL_OPTION) {
     return action.selectedMenu;
