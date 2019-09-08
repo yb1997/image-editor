@@ -1,5 +1,5 @@
 export const TOGGLE_INVERT_IMAGE = "toggleInvertImage";
 
-export const SET_BRIGHTNESS = "setBrightness";
+export const ADJUST_BRIGHTNESS = "adjustBrightness";
 
-export const SET_CONTRAST = "setContrast";
+export const ADJUST_CONTRAST = "adjustContrast";

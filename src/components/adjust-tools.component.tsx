@@ -8,10 +8,13 @@ import { TOGGLE_INVERT_IMAGE } from "../_action-types";
 type propType = { ctx: CanvasRenderingContext2D | null }
 
 export const AdjustToolsCore = (props: propType) => {
-  const shallInvertImage = useSelector((p: AppStore) => p.invertImage);
+  const imageEditorState = useSelector((p: AppStore) => p.imageEditor);
   const dispatch = useDispatch();
   const [isFirstTime, setIsFirstTime] = useState(true);
   const ctx = props.ctx;
+  const isImageInverted = imageEditorState.present.adjustImage.invertImage;
+
+  console.log(imageEditorState.past);
 
   const invertImage = () => {
     const actualData = ctx.getImageData(
@@ -49,7 +52,7 @@ export const AdjustToolsCore = (props: propType) => {
     } else {
       setIsFirstTime(false);
     }
-  }, [shallInvertImage.present]);
+  }, [isImageInverted]);
 
   const handleChange = () => {
     dispatch({ type: TOGGLE_INVERT_IMAGE });
@@ -64,7 +67,7 @@ export const AdjustToolsCore = (props: propType) => {
           type="checkbox"
           className="toggle material-toggle"
           onChange={handleChange}
-          checked={shallInvertImage.present}
+          checked={isImageInverted}
         />
       </div>
       <label htmlFor="image-invert-control">Invert Color</label>

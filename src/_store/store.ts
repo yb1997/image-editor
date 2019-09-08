@@ -1,13 +1,16 @@
 import { createStore } from "redux";
-import { rootReducer } from "../_reducers/root.reducer";
+import { rootReducer, IAdjustImage } from "../_reducers/root.reducer";
 import { SelectedMenu } from "../constant";
 import { StateWithHistory } from "redux-undo";
 
+interface IImageEditor {
+    adjustImage: IAdjustImage
+}
+
 export type AppStore = {
     drawer: { isOpen: boolean },
-    // adjust: { invertImage: { past: boolean[], present: boolean, future: boolean[] } },
     selectedMenu: SelectedMenu,
-    invertImage: StateWithHistory<boolean>
+    imageEditor: StateWithHistory<IImageEditor>
 }
 
 export const store = createStore(rootReducer);

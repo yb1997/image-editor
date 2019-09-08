@@ -131,14 +131,6 @@ canvas {
   display: flex;
 }
 
-.menu-bar button {
-  background-color: var(--DARK_THEME_BACKGROUND);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 0 1em;
-}
-
 /* #region Tool Menu Styles */
 .tool-menu {
   position: relative;
