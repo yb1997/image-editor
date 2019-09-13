@@ -34,6 +34,7 @@ export class App extends React.Component<{}, State> {
     img.onload = () => {
       if (canvas && ctx) {
         const aspectRatio = img.width / img.height;
+        canvas.width = Math.min(canvas.width, img.width);
         canvas.height = canvas.width / aspectRatio;
 
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);

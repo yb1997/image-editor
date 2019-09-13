@@ -34,6 +34,10 @@ body {
 .float-left {
   float: left;
 }
+
+.text-center {
+  text-align: center;
+}
 /* #endregion */
 
 /* #region checkbox styles */
