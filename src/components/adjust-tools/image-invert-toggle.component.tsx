@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IAppStore } from "../../_store";
-import { Consumer } from "../../context";
 import { TOGGLE_INVERT_IMAGE } from "../../_action-types";
 
-const ImageInvertToggleCore = ({ ctx }) => {
+
+export const ImageInvertToggle = () => {
+    const isImageSelected = useSelector<IAppStore, boolean>(p => p.isImageSelected);
+    const ctx = useSelector<IAppStore, CanvasRenderingContext2D>(props => props.ctx);
     const imageEditorState = useSelector((p: IAppStore) => p.imageEditor);
     const dispatch = useDispatch();
     const [isFirstTime, setIsFirstTime] = useState(true);
@@ -64,6 +66,7 @@ const ImageInvertToggleCore = ({ ctx }) => {
                     className="toggle material-toggle"
                     onChange={handleChange}
                     checked={isImageInverted}
+                    disabled={!isImageSelected}
                 />
             </div>
             <label htmlFor="image-invert-control">Invert Color</label>
@@ -71,10 +74,3 @@ const ImageInvertToggleCore = ({ ctx }) => {
     );
 };
 
-export const ImageInvertToggle = () => {
-    return (
-        <Consumer>
-            {(props) => <ImageInvertToggleCore ctx={props.ctx} />}
-        </Consumer>
-    );
-}

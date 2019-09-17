@@ -41,6 +41,13 @@ body {
 /* #endregion */
 
 /* #region checkbox styles */
+.toggle-wrapper {
+  display: inline-block;
+  height: var(--TOGGLE_HEIGHT);
+  margin-bottom: var(--TOGGLE_HEIGHT);
+  clear: left;
+}
+
 .toggle {
   margin: 0;
   float: left;
@@ -53,18 +60,15 @@ body {
   position: relative;
 }
 
-.toggle-wrapper {
-  display: inline-block;
-  height: var(--TOGGLE_HEIGHT);
-  margin-bottom: var(--TOGGLE_HEIGHT);
-  clear: left;
+.material-toggle:disabled {
+  cursor: not-allowed;
 }
 
 .material-toggle:checked:before {
   left: 30px;
 }
 
-.material-toggle:checked:after {
+.material-toggle:checked::after {
   background-color: #4caf50;
 }
 
@@ -81,6 +85,10 @@ body {
   z-index: 2;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
   transition: left 0.4s;
+}
+
+.material-toggle:disabled::before {
+  background-color: #ccc;
 }
 
 .material-toggle:after {
