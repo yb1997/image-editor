@@ -1,10 +1,12 @@
 import { combineReducers, AnyAction } from "redux";
 import {
+  isImageSelected,
   drawerReducer,
   menuToolReducer as selectedMenu
 } from "./index";
-import undoable, { FilterFunction, StateWithHistory } from "redux-undo";
+import undoable from "redux-undo";
 import { TOGGLE_INVERT_IMAGE, ADJUST_BRIGHTNESS, ADJUST_CONTRAST } from "../_action-types";
+
 
 
 // #region Adjust Image Reducer
@@ -56,6 +58,7 @@ const imageEditor = undoable(imageEditorCore, { filter: editorStateDiff });
 // #endregion
 
 export const rootReducer = combineReducers({
+  isImageSelected,
   drawer: drawerReducer,
   selectedMenu,
   imageEditor

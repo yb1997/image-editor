@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppStore } from "../../_store";
+import { IAppStore } from "../../_store";
 import { Consumer } from "../../context";
 import { TOGGLE_INVERT_IMAGE } from "../../_action-types";
 
 const ImageInvertToggleCore = ({ ctx }) => {
-    const imageEditorState = useSelector((p: AppStore) => p.imageEditor);
+    const imageEditorState = useSelector((p: IAppStore) => p.imageEditor);
     const dispatch = useDispatch();
     const [isFirstTime, setIsFirstTime] = useState(true);
     const isImageInverted = imageEditorState.present.adjustImage.invertImage;

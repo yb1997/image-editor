@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { AdjustMenuOption, OverlayMenuOption, TransformMenuOption } from "./menubar-options";
 import { Consumer } from "../context";
-import { AppStore } from "../_store";
+import { IAppStore } from "../_store";
 
 
 export type propType = { ctx: CanvasRenderingContext2D | null };
@@ -31,7 +31,7 @@ const RedoButton = styled(HistoryButton)``;
 
 export const MenuBarCore = (props: propType) => {
   const dispatch = useDispatch();
-  const editorState = useSelector((p: AppStore) => p.imageEditor);
+  const editorState = useSelector((p: IAppStore) => p.imageEditor);
 
   return (
     <div className="menu-bar">

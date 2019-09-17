@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { AppStore } from "../_store";
+import { IAppStore } from "../_store";
 import { CLOSE_TOOL_DRAWER } from "../_action-types";
 import { AdjustTools } from "./adjust-tools.component";
 
 export const ToolDrawer = () => {
-  const openDrawer = useSelector((s: AppStore) => s.drawer.isOpen);
+  const openDrawer = useSelector((s: IAppStore) => s.drawer.isOpen);
   const dispatch = useDispatch();
   
   return (
