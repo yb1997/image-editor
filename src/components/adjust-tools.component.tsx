@@ -1,25 +1,14 @@
 import React from "react";
-import { Consumer } from "../context";
-import { ImageInvertToggle, BrightnessSlider } from "./adjust-tools";
+import { ImageInvertToggle, BrightnessSlider, BlurSlider } from "./adjust-tools";
 
 
-type propType = { ctx: CanvasRenderingContext2D | null }
-
-export const AdjustToolsCore = (props: propType) => {
+export const AdjustTools = () => {
 
   return (
     <>
       <ImageInvertToggle />
       <BrightnessSlider />
+      <BlurSlider />
     </>
   );
 };
-
-
-export const AdjustTools = () => {
-  return (
-    <Consumer>
-      {(props) => <AdjustToolsCore ctx={props.ctx} />}
-    </Consumer>
-  );
-}

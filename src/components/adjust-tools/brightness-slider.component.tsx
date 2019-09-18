@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Consumer, appContext } from "../../context";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { IAppStore, IImageEditor } from "../../_store";
