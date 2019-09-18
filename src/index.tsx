@@ -41,7 +41,7 @@ export function App() {
       originalImage.current = img;
 
       const aspectRatio = originalImage.current.width / originalImage.current.height;
-      canvas.current.width = Math.min(canvas.current.width, originalImage.current.width);
+      canvas.current.width = Math.min(config.CANVAS_WIDTH, originalImage.current.width);
       canvas.current.height = canvas.current.width / aspectRatio;
 
       ctx.current.drawImage(originalImage.current, 0, 0, canvas.current.width, canvas.current.height);

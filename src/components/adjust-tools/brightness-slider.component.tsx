@@ -29,7 +29,7 @@ export const BrightnessSlider = () => {
     const ctx = useSelector<IAppStore, CanvasRenderingContext2D>(state => state.ctx);
     const editor = useSelector<IAppStore, StateWithHistory<IImageEditor>>(state => state.imageEditor);
     const isImageSelected = useSelector<IAppStore, boolean>(state => state.isImageSelected);
-    // const originalImageData = useSelector<IAppStore, ImageData>(state => state.originalImageData);
+    const originalImageData = useSelector<IAppStore, ImageData>(state => state.originalImageData);
     
     const dispatch = useDispatch();
     const brightness = editor.present.adjustImage.brightness;
@@ -45,9 +45,9 @@ export const BrightnessSlider = () => {
         const len = imageData.data.length;
 
         for(let i = 0; i < len; i += 4) {
-            imageData.data[i] = Math.min(255, Math.floor(imageData.data[i] * (brightness / 100)) );
-            imageData.data[i + 1] = Math.min(255, Math.floor(imageData.data[i + 1] * (brightness / 100)) );
-            imageData.data[i + 2] = Math.min(255, Math.floor(imageData.data[i + 2] * (brightness / 100)) );
+            imageData.data[i] = Math.min(255, Math.floor(originalImageData.data[i] * (brightness / 100)) );
+            imageData.data[i + 1] = Math.min(255, Math.floor(originalImageData.data[i + 1] * (brightness / 100)) );
+            imageData.data[i + 2] = Math.min(255, Math.floor(originalImageData.data[i + 2] * (brightness / 100)) );
         }
 
         ctx.putImageData(imageData, 0, 0);
